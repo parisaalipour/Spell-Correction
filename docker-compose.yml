@@ -1,0 +1,36 @@
+version: '2'
+services:
+  search-engine:
+    container_name: search-engine
+    build: .
+    command : sh -c "java -jar searchengine-0.0.1-SNAPSHOT.jar"
+    ports:
+      - 8095:8095
+    links:
+      - mysql
+
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    command: ['mysqld', '--character-set-server=utf8mb4_persian_ci', '--collation-server=utf8mb4_persian_ci']
+    volumes:
+#      - ./database/:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: searchengine
+      MYSQL_USER: amir
+      MYSQL_PASSWORD: 1234
+    ports:
+      - 3306:3306
+
+#  redis:
+#    container_name: redis
+#    image: redis
+#    restart: always
+#    ports:
+#      - 6379:6379
+
+volumes:
+  mysql-data:

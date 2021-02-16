@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>spell correction</title>
+</head>
+
+<style>
+
+    /*@import url('https://fonts.googleapis.com/css2?family=Scheherazade:wght@700&display=swap');*/
+
+    body{
+        background-color: white;
+        align-items: center;
+        position: relative;
+        font-family: 'B Nazanin', serif;
+    }
+
+    .main{
+        background-color: lightseagreen;
+        width: 70%;
+        min-height: 90vh;
+        position: absolute;
+        top: 5vh;
+        left: 15%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4);
+        text-align: center;
+        direction: rtl;
+    }
+
+    .correct{
+        margin-top: 3%;
+        width: 93%;
+        display: inline-block;
+    }
+
+    .input-field{
+        width: 80%;
+        padding: 1% 2%;
+        font-family: 'B Nazanin';
+        font-size: large;
+    }
+
+    .btn{
+        padding: 0.5% 3%;
+        margin-right: 2%;
+        background-color: white;
+        color: darkcyan;
+        font-weight: 700;
+        font-family: 'B Nazanin';
+        font-size: x-large;
+    }
+
+    .corrected-word-container{
+        background-color: white;
+        width: 90%;
+        height: 90%;
+        margin: 3% auto;
+        text-align: right;
+    }
+
+    .corrected-word-container ul{
+        /*list-style-image: url("images/double-left.png");*/
+    }
+
+    .corrected-word-container img{
+        width: 20px;
+    }
+
+    .corrected-word-container ul li{
+        padding: 1%;
+        font-weight: 600;
+        font-size: x-large;
+        display: inline-block;
+    }
+</style>
+
+<body>
+
+<div class="main">
+    <form class="correct" th:action="@{/main}" method="post">
+        <input class="input-field" name="phrase" type="text" placeholder="عبارت مورد نظر خود را در اینجا تایپ کنید ...">
+        <input type="submit" class="btn" value="ثبت">
+    </form>
+    <div th:if="${not #lists.isEmpty(correctedWords)}" class="corrected-word-container">
+        <ul th:each="corrected : ${correctedWords}">
+            <img src="images/double-left.png">
+            <li th:text="${corrected}"></li>
+        </ul>
+    </div>
+</div>
+
+
+</body>
+</html>
